@@ -94,7 +94,14 @@ static  NSInteger LZFImageCount =100;
 {
     _images=images;
     //让collection一开始就滚到中间第50gecell中
-    [self.collectionView scrollToItemAtIndexPath:[NSIndexPath indexPathForItem:(LZFImageCount*self.images.count)/2 inSection:0] atScrollPosition:UICollectionViewScrollPositionNone animated:NO];
+    
+    
+    //延迟一些时间执行
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.01 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            [self.collectionView scrollToItemAtIndexPath:[NSIndexPath indexPathForItem:(LZFImageCount*self.images.count)/2 inSection:0] atScrollPosition:UICollectionViewScrollPositionNone animated:NO];
+    });
+    
+
     
     [self startTimer];
 }
